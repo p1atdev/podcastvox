@@ -16,7 +16,7 @@ PodcastVoxは、学術論文やドキュメントなどのPDFファイルを入�
 - 📄 PDF URL から自動でコンテンツを取得
 - 🤖 Gemini AIによる内容の理解と解説生成
 - 🎭 スピーカーとサポーターの二人による自然な対話形式
-- 🎤 VOICEVOX/AIVCVOICE対応の音声合成
+- 🎤 VOICEVOX API対応の音声合成
 - 🌐 直感的なGradio Web UI
 - 🔄 音声話者の変更・再録音機能
 
