@@ -2,6 +2,7 @@ import tempfile
 import asyncio
 import dotenv
 import os
+import time
 
 
 from src.voicevox import VoiceVoxClient
@@ -21,13 +22,15 @@ async def generate_podcast(
     speaker_name: str,
     supporter_name: str,
     speaker2id: dict[str, int],
-) -> tuple[str, str, object, Conversation]:
+) -> tuple[str, str, object, Conversation, str, dict]:
     client = VoiceVoxClient(voicevox_endpoint)
 
     speaker_id = speaker2id[speaker_name]
     supporter_id = speaker2id[supporter_name]
 
     podcast_studio = PodcastStudio(api_key=llm_api_key)
+
+    start_time = time.time()
 
     blog, _dialogue, conversation = await podcast_studio.create_conversation(pdf_url)
     podcast_audio = await podcast_studio.record_podcast(
@@ -41,11 +44,15 @@ async def generate_podcast(
         temp_file.write(podcast_audio.wav)
         temp_file_path = temp_file.name
 
+    elapsed_time = time.time() - start_time
+    time_elapsed_text = f"処理時間: {elapsed_time:.2f} 秒"
+
     return (
         temp_file_path,
         blog,
         conversation.model_dump(),
         conversation,
+        time_elapsed_text,
         gr.update(visible=True),
     )
 
@@ -56,7 +63,7 @@ async def change_speaker(
     supporter_name: str,
     speaker2id: dict[str, int],
     conversation_cache: Conversation,
-) -> str:
+) -> tuple[str, str]:
     client = VoiceVoxClient(voicevox_endpoint)
 
     speaker_id = speaker2id[speaker_name]
@@ -64,6 +71,7 @@ async def change_speaker(
 
     podcast_studio = PodcastStudio(api_key="")
 
+    start_time = time.time()
     podcast_audio = await podcast_studio.record_podcast(
         conversation=conversation_cache,
         voicevox_client=client,
@@ -75,7 +83,10 @@ async def change_speaker(
         temp_file.write(podcast_audio.wav)
         temp_file_path = temp_file.name
 
-    return temp_file_path
+    elapsed_time = time.time() - start_time
+    time_elapsed_text = f"処理時間: {elapsed_time:.2f} 秒"
+
+    return temp_file_path, time_elapsed_text
 
 
 async def get_speakers(endpoint: str):
@@ -166,6 +177,10 @@ async def main():
                     )
                     submit_button = gr.Button("Synthesize", variant="primary")
 
+                time_elapsed_text = gr.Markdown(
+                    value="",
+                )
+
                 output_audio = gr.Audio(
                     label="Output Podcast Audio",
                     type="filepath",
@@ -209,6 +224,7 @@ async def main():
                 blog_output,
                 conversation_output,
                 conversation_cache,
+                time_elapsed_text,
                 change_speaker_button,  # make visible after generation
             ],
             concurrency_limit=10,
@@ -223,7 +239,10 @@ async def main():
                 spaker2id_map,
                 conversation_cache,
             ],
-            outputs=[output_audio],
+            outputs=[
+                output_audio,
+                time_elapsed_text,
+            ],
             concurrency_limit=10,
         )
 

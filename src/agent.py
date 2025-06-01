@@ -158,8 +158,6 @@ class StructureAgent:
             safety_settings=SAFETY_SETTINGS,
         )
 
-        print(res.choices[0])
-
         conversation = Conversation.model_validate(
             json.loads(res.choices[0].message.content)
         )
