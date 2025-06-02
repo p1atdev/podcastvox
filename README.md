@@ -47,11 +47,11 @@ uv sync
 
 **VOICEVOX**の場合:
 - [VOICEVOX公式サイト](https://voicevox.hiroshiba.jp/)からダウンロード
-- アプリケーションを起動 (API: `http://localhost:50021`)
+- アプリケーションを起動 (API: `http://127.0.0.1:50021`)
 
 **Aivis Speech**の場合 (推奨):
 - [Aivis Speech公式サイト](https://aivis-project.com/)からダウンロード
-- アプリケーションを起動 (API: `http://localhost:10101`)
+- アプリケーションを起動 (API: `http://127.0.0.1:10101`)
 
 ### 2. API キーの設定
 
@@ -77,7 +77,7 @@ python webui.py
 
 ブラウザで表示されるURLにアクセスし、以下の手順で使用：
 
-1. **VOICEVOXエンドポイント**を確認（通常は http://localhost:50021）
+1. **VOICEVOXエンドポイント**を確認（通常は http://127.0.0.1:50021）
 2. **話者**を選択（メイン話者とサポーター話者）
 3. **Gemini API Key**を入力（環境変数で設定済みの場合は不要）
 4. **PDFのURL**を入力（例: https://arxiv.org/pdf/2308.06721）

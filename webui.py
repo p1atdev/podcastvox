@@ -3,6 +3,7 @@ import asyncio
 import dotenv
 import os
 import time
+import logging
 
 
 from src.voicevox import VoiceVoxClient
@@ -28,7 +29,10 @@ async def generate_podcast(
     speaker_id = speaker2id[speaker_name]
     supporter_id = speaker2id[supporter_name]
 
-    podcast_studio = PodcastStudio(api_key=llm_api_key)
+    podcast_studio = PodcastStudio(
+        api_key=llm_api_key,
+        logging_level=logging.DEBUG,
+    )
 
     start_time = time.time()
 
@@ -119,7 +123,7 @@ async def on_endpoint_change(endpoint_text: str):
 
 
 async def main():
-    initial_endpoint = "http://localhost:50021"
+    initial_endpoint = "http://127.0.0.1:50021"
     try:
         speakers, spaker2id = await get_speakers(initial_endpoint)
     except Exception as _e:
@@ -133,7 +137,7 @@ async def main():
                     endpoint_text = gr.Textbox(
                         label="VOICEVOX エンドポイント",
                         value=initial_endpoint,
-                        placeholder="http://localhost:50021",
+                        placeholder="http://127.0.0.1:50021",
                         info="VOICEVOX 型 の REST API に対応したエンドポイントを入力してください",
                     )
                     with gr.Row():

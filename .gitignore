@@ -12,3 +12,4 @@ wheels/
 .env.local
 .env
 dist
+.DS_Store
