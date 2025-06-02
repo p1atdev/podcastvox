@@ -1,23 +1,24 @@
 # PodcastVox
 
-PDF ファイルから Gemini と VOICEVOX を使用してポッドキャスト音声を自動生成する Python アプリケーションです。
+Gemini と VOICEVOX を使用して、Web ページからポッドキャスト音声を自動生成する WebUI
+
 
 ## 概要
 
-PodcastVoxは、学術論文やドキュメントなどのPDFファイルを入力として、以下の処理を自動で行います：
+PodcastVoxは、Web ページや学術論文、ドキュメントなどの PDF 等の URL を入力として、以下の処理を自動で行います：
 
-1. **PDF解析**: PDFからテキストコンテンツを抽出
-2. **ブログ記事生成**: AIがPDFの内容を分かりやすく解説する記事を作成
+1. **Web ページ解析**: URL からテキストコンテンツを抽出
+2. **ブログ記事生成**: AIが Web ページの内容を分かりやすく解説する記事を作成
 3. **対話台本生成**: ポッドキャスト形式の会話台本を生成
-4. **音声合成**: VOICEVOXを使用して自然な音声ファイルを生成
+4. **音声合成**: VOICEVOX API を使用して自然な音声ファイルを生成
 
 ## 主な機能
 
-- 📄 PDF URL から自動でコンテンツを取得
-- 🤖 Gemini AIによる内容の理解と解説生成
+- 📄 URL から自動でコンテンツを取得
+- 🤖 Gemini による内容の理解と解説生成
 - 🎭 スピーカーとサポーターの二人による自然な対話形式
-- 🎤 VOICEVOX API対応の音声合成
-- 🌐 直感的なGradio Web UI
+- 🎤 VOICEVOX API 対応の音声合成
+- 🌐 直感的な Gradio Web UI
 - 🔄 音声話者の変更・再録音機能
 
 ## 必要な環境
@@ -46,9 +47,9 @@ uv sync
 
 **VOICEVOX**の場合:
 - [VOICEVOX公式サイト](https://voicevox.hiroshiba.jp/)からダウンロード
-- アプリケーションを起動 (API): `http://localhost:50021`）
+- アプリケーションを起動 (API: `http://localhost:50021`)
 
-**Aivis Speech**の場合:
+**Aivis Speech**の場合 (推奨):
 - [Aivis Speech公式サイト](https://aivis-project.com/)からダウンロード
 - アプリケーションを起動 (API: `http://localhost:10101`)
 
@@ -82,18 +83,11 @@ python webui.py
 4. **PDFのURL**を入力（例: https://arxiv.org/pdf/2308.06721）
 5. **Synthesize**ボタンをクリック
 
-## プロジェクト構成
 
-```
-podcastvox/
-├── src/
-│   ├── agent.py          # AI エージェント（ブログ生成、対話生成等）
-│   ├── podcast.py        # ポッドキャスト生成のメインロジック
-│   └── voicevox.py       # VOICEVOX API クライアント
-├── tests/                # テストファイル
-├── webui.py             # Gradio Web インターフェース
-├── pyproject.toml       # プロジェクト設定
-└── README.md            # このファイル
-```
+
+## サンプル生成物
+
+[`./sample`](./sample) では生成された解説記事や対話台本、構造化された対話の JSON ファイルを置いているので、どんな感じになるのか確認できます。
+
 
 
