@@ -2,6 +2,8 @@
 
 Gemini と VOICEVOX を使用して、Web ページからポッドキャスト音声を自動生成する WebUI
 
+<img src="./assets/screenshot_01.jpg" alt="PodcastVox Screenshot" width="600" style="border-radius: 8px;">
+
 
 ## 概要
 
