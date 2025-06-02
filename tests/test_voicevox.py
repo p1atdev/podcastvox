@@ -59,6 +59,33 @@ async def test_aivis_audio_query():
 
 
 @pytest.mark.asyncio
+async def test_voicevox_synthesis():
+    client = VoiceVoxClient("http://localhost:50021")
+
+    speakers = await client.get_speakers()
+    assert len(speakers) > 0
+
+    core_version = (await client.get_core_versions())[0]
+    assert isinstance(core_version, str)
+
+    audio_query = await client.post_audio_query(
+        text="こんにちは！",
+        speaker=speakers[0].styles[0].id,
+        core_version=core_version,
+    )
+    assert audio_query is not None
+
+    audio_data = await client.post_synthesis(
+        speaker=speakers[0].styles[0].id,
+        audio_query=audio_query,
+        enable_interrogative_upspeak=True,
+        core_version=core_version,
+    )
+    assert audio_data is not None
+    assert isinstance(audio_data.wav, bytes)
+
+
+@pytest.mark.asyncio
 async def test_aivis_synthesis():
     client = VoiceVoxClient("http://localhost:10101")
 

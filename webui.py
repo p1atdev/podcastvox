@@ -69,7 +69,7 @@ async def change_speaker(
     speaker_id = speaker2id[speaker_name]
     supporter_id = speaker2id[supporter_name]
 
-    podcast_studio = PodcastStudio(api_key="")
+    podcast_studio = PodcastStudio(api_key="")  # only voice synthesis
 
     start_time = time.time()
     podcast_audio = await podcast_studio.record_podcast(
@@ -170,10 +170,10 @@ async def main():
             with gr.Column():
                 with gr.Group():
                     pdf_url_text = gr.Textbox(
-                        label="PDF の URL",
-                        placeholder="https://arxiv.org/pdf/2308.06721",
+                        label="情報源となる Web サイト の URL",
+                        placeholder="https://arxiv.org/pdf/2308.06721, https://example.com/index.html",
                         lines=1,
-                        info="Podcast のテーマとなる PDF の URL を入力してください。PDF は公開されている必要があります。",
+                        info="Podcast のテーマとなる Web サイト の URL を入力してください。HTML、PDF に対応しています。",
                     )
                     submit_button = gr.Button("Synthesize", variant="primary")
 

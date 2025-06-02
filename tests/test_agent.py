@@ -1,7 +1,5 @@
 import pytest
-import aiohttp
 import dotenv
-import tempfile
 import os
 
 
@@ -9,9 +7,9 @@ from src.agent import (
     BloggerAgent,
     WriterAgent,
     StructureAgent,
-    PDF2MDAgent,
     Conversation,
 )
+from src.fetcher import PDFFetcher
 
 dotenv.load_dotenv(".env.local")
 API_KEY = os.environ.get("GEMINI_API_KEY", "")
@@ -24,18 +22,10 @@ async def test_blogger_agent():
         api_key=API_KEY,
     )
 
-    pdf2md = PDF2MDAgent()
+    fetcher = PDFFetcher()
 
     pdf_url = "https://arxiv.org/pdf/2309.17400"
-
-    with tempfile.NamedTemporaryFile(delete=True, suffix=".pdf") as temp_pdf:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(pdf_url) as response:
-                if response.status != 200:
-                    raise Exception(f"Failed to download PDF: {response.status}")
-                temp_pdf.write(await response.read())
-        temp_pdf_path = temp_pdf.name
-        paper = pdf2md.read_local(temp_pdf_path)
+    paper = await fetcher.fetch(pdf_url)
 
     # print("paper:", paper)
 
@@ -54,18 +44,10 @@ async def test_writer_agent():
         api_key=API_KEY,
     )
 
-    pdf2md = PDF2MDAgent()
+    fetcher = PDFFetcher()
 
     pdf_url = "https://arxiv.org/pdf/2309.17400"
-
-    with tempfile.NamedTemporaryFile(delete=True, suffix=".pdf") as temp_pdf:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(pdf_url) as response:
-                if response.status != 200:
-                    raise Exception(f"Failed to download PDF: {response.status}")
-                temp_pdf.write(await response.read())
-        temp_pdf_path = temp_pdf.name
-        paper = pdf2md.read_local(temp_pdf_path)
+    paper = await fetcher.fetch(pdf_url)
 
     with open("./dist/blog.md", "r", encoding="utf-8") as f:
         blog = f.read()

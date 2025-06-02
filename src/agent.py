@@ -163,32 +163,3 @@ class StructureAgent:
         )
 
         return conversation
-
-
-class PDF2MDAgent:
-    def __init__(self):
-        self.md = MarkItDown(enable_plugins=True)
-
-    def read_local(self, pdf_path: str) -> str:
-        result = self.md.convert(pdf_path)
-
-        pages = result.text_content.split("\f")
-
-        markdown = "\n".join(pages)
-
-        return markdown.strip()
-
-    async def read_remote(self, pdf_url: str) -> str:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(pdf_url) as response:
-                if response.status != 200:
-                    raise Exception(f"Failed to download PDF: {response.status}")
-                pdf_content = await response.read()
-
-        with tempfile.NamedTemporaryFile(delete=True, suffix=".pdf") as temp_pdf:
-            temp_pdf.write(pdf_content)
-            temp_pdf_path = temp_pdf.name
-
-            md = self.read_local(temp_pdf_path)
-
-        return md
