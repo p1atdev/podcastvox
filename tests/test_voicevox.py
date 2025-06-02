@@ -6,7 +6,7 @@ from src.voicevox import VoiceVoxClient
 
 @pytest.mark.asyncio
 async def test_voicevox_get_speakers():
-    client = VoiceVoxClient("http://localhost:50021")
+    client = VoiceVoxClient("http://127.0.0.1:50021")
 
     speakers = await client.get_speakers()
     assert isinstance(speakers, list)
@@ -15,7 +15,7 @@ async def test_voicevox_get_speakers():
 
 @pytest.mark.asyncio
 async def test_aivis_get_speakers():
-    client = VoiceVoxClient("http://localhost:10101")
+    client = VoiceVoxClient("http://127.0.0.1:10101")
 
     speakers = await client.get_speakers()
     assert isinstance(speakers, list)
@@ -24,7 +24,7 @@ async def test_aivis_get_speakers():
 
 @pytest.mark.asyncio
 async def test_voicevox_audio_query():
-    client = VoiceVoxClient("http://localhost:50021")
+    client = VoiceVoxClient("http://127.0.0.1:50021")
 
     speakers = await client.get_speakers()
     assert len(speakers) > 0
@@ -42,7 +42,7 @@ async def test_voicevox_audio_query():
 
 @pytest.mark.asyncio
 async def test_aivis_audio_query():
-    client = VoiceVoxClient("http://localhost:10101")
+    client = VoiceVoxClient("http://127.0.0.1:10101")
 
     speakers = await client.get_speakers()
     assert len(speakers) > 0
@@ -60,7 +60,7 @@ async def test_aivis_audio_query():
 
 @pytest.mark.asyncio
 async def test_voicevox_synthesis():
-    client = VoiceVoxClient("http://localhost:50021")
+    client = VoiceVoxClient("http://127.0.0.1:50021")
 
     speakers = await client.get_speakers()
     assert len(speakers) > 0
@@ -87,7 +87,7 @@ async def test_voicevox_synthesis():
 
 @pytest.mark.asyncio
 async def test_aivis_synthesis():
-    client = VoiceVoxClient("http://localhost:10101")
+    client = VoiceVoxClient("http://127.0.0.1:10101")
 
     speakers = await client.get_speakers()
     assert len(speakers) > 0
@@ -114,7 +114,7 @@ async def test_aivis_synthesis():
 
 @pytest.mark.asyncio
 async def test_aivis_connect_waves():
-    client = VoiceVoxClient("http://localhost:10101")
+    client = VoiceVoxClient("http://127.0.0.1:10101")
 
     speakers = await client.get_speakers()
     assert len(speakers) > 0

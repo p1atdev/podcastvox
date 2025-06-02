@@ -15,7 +15,7 @@ async def test_record_podcast_pdf():
     pdf_url = "https://arxiv.org/pdf/2309.17400"
 
     podcast_studio = PodcastStudio(api_key=API_KEY)
-    voicevox = VoiceVoxClient("http://localhost:10101")
+    voicevox = VoiceVoxClient("http://127.0.0.1:10101")
 
     _blog, _dialogue, conversation = await podcast_studio.create_conversation(pdf_url)
     podcast_audio = await podcast_studio.record_podcast(
@@ -48,7 +48,7 @@ async def test_record_podcast_html():
     url = "https://www.aozora.gr.jp/cards/000879/files/127_15260.html"  # 羅生門
 
     podcast_studio = PodcastStudio(api_key=API_KEY)
-    voicevox = VoiceVoxClient("http://localhost:10101")
+    voicevox = VoiceVoxClient("http://127.0.0.1:10101")
 
     _blog, _dialogue, conversation = await podcast_studio.create_conversation(url)
     podcast_audio = await podcast_studio.record_podcast(

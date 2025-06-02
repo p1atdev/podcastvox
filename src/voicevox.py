@@ -43,7 +43,7 @@ class Audio(BaseModel):
 class VoiceVoxClient:
     endpoint: str
 
-    def __init__(self, endpoint: str = "http://localhost:50021"):
+    def __init__(self, endpoint: str = "http://127.0.0.1:50021"):
         self.endpoint = endpoint
 
     async def get_speakers(self) -> list[Speaker]:
