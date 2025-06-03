@@ -1,9 +1,6 @@
 import json
-import aiohttp
-import tempfile
 from typing import Literal
 from pydantic import BaseModel
-from markitdown import MarkItDown
 
 import litellm
 from litellm.types.utils import ModelResponse

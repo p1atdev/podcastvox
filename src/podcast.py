@@ -1,4 +1,3 @@
-import asyncio
 from tqdm import tqdm
 import logging
 
@@ -67,7 +66,10 @@ class PodcastStudio:
                 text=text,
                 speaker=speaker_id,
             )
-            audio_query.speedScale = 1.1
+            if audio_query.tempoDynamicsScale is not None:
+                audio_query.tempoDynamicsScale = 1.1
+            else:
+                audio_query.speedScale = 1.1
 
             audio = await voicevox_client.post_synthesis(
                 speaker=speaker_id,
