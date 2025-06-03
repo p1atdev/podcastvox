@@ -196,24 +196,7 @@ async def on_change_speaker(
     )
 
 
-async def wait_for_endpoint(url: str, timeout: float = 30.0, interval: float = 0.5):
-    """url が 200 を返すまで待機"""
-    start = time.time()
-    while time.time() - start < timeout:
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url) as res:
-                    if res.status == 200:
-                        return
-        except Exception:
-            pass
-        await asyncio.sleep(interval)
-    raise RuntimeError(f"Endpoint {url} did not become ready in {timeout}s")
-
-
 async def main():
-    await wait_for_endpoint(AIVIS_ENDPOINT)
-
     initial_endpoint = AIVIS_ENDPOINT
     try:
         speakers, spaker2id = await get_speakers(initial_endpoint)
