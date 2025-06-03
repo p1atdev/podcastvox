@@ -295,6 +295,11 @@ Gemini Flash 2.5 と Aivis Speech を利用して、Web サイトを情報源と
 
             with gr.Column():
                 with gr.Group():
+                    website_title = gr.Textbox(
+                        label="Web サイトタイトル",
+                        value="",
+                        visible=False,
+                    )
                     pdf_url_text = gr.Textbox(
                         label="情報源となる Web サイト の URL (1つのみ)",
                         placeholder="例) https://arxiv.org/pdf/2308.06721, https://example.com/index.html",
@@ -327,24 +332,48 @@ Gemini Flash 2.5 と Aivis Speech を利用して、Web サイトを情報源と
 
         gr.Examples(
             examples=[
-                ["https://arxiv.org/pdf/2106.09685"],  # LoRA
-                ["https://arxiv.org/pdf/2501.03575"],  # Cosmos
-                ["https://arxiv.org/pdf/2503.07565"],  # Inductive Moment Matching
-                ["https://arxiv.org/pdf/2303.15343"],  # SigLIP
-                ["https://arxiv.org/pdf/2212.09748"],  # DiT
-                ["https://arxiv.org/pdf/2501.16937"],  # TAID
                 [
-                    "https://lilianweng.github.io/posts/2021-05-31-contrastive/"
+                    "LoRA: Low-Rank Adaptation of Large Language Models",
+                    "https://arxiv.org/pdf/2106.09685",
+                ],  # LoRA
+                [
+                    "Cosmos World Foundation Model Platform for Physical AI",
+                    "https://arxiv.org/pdf/2501.03575",
+                ],  # Cosmos
+                [
+                    "Inductive Moment Matching (IMM)",
+                    "https://arxiv.org/pdf/2503.07565",
+                ],  # Inductive Moment Matching
+                [
+                    "Sigmoid Loss for Language Image Pre-Training (SigLIP)",
+                    "https://arxiv.org/pdf/2303.15343",
+                ],  # SigLIP
+                [
+                    "Scalable Diffusion Models with Transformers (DiT)",
+                    "https://arxiv.org/pdf/2212.09748",
+                ],  # DiT
+                [
+                    "TAID: Temporally Adaptive Interpolated Distillation for Efficient Knowledge Transfer in Language Models",
+                    "https://arxiv.org/pdf/2501.16937",
+                ],  # TAID
+                [
+                    "Contrastive Representation Learning",
+                    "https://lilianweng.github.io/posts/2021-05-31-contrastive/",
                 ],  # Contrastive Learning
                 [
-                    "https://www.aozora.gr.jp/cards/000879/files/127_15260.html"
+                    "羅生門 | 青空文庫",
+                    "https://www.aozora.gr.jp/cards/000879/files/127_15260.html",
                 ],  # 羅生門
-                ["https://tech-blog.abeja.asia/entry/hyperbolic_ml_2019"],  # 双極空間
                 [
-                    "https://uehara-mech.github.io/assets/nlp2025-asagi-vlm.pdf"
+                    "双曲空間でのMachine Learningの最近の進展",
+                    "https://tech-blog.abeja.asia/entry/hyperbolic_ml_2019",
+                ],  # 双曲空間
+                [
+                    "Asagi VLM: 合成データセットを活用した大規模日本語 VLM",
+                    "https://uehara-mech.github.io/assets/nlp2025-asagi-vlm.pdf",
                 ],  # Asagi VLM
             ],
-            inputs=[pdf_url_text],
+            inputs=[website_title, pdf_url_text],
         )
 
         gr.on(
